@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text,Button } from "react-native";
+import { View, Text, Pressable } from "react-native";
 
 import styles from "../styles";
 
@@ -7,10 +7,25 @@ import styles from "../styles";
 function SelectDifficultyScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Select Difficulty Screen</Text>
-      <Button title="Fácil" onPress={() => navigation.navigate("Card")} />
-      <Button title="Medio" onPress={() => navigation.navigate("Home")} />
-      <Button title="Díficil" onPress={() => navigation.navigate("Home")} />
+      <Text style={styles.title}>Select Difficulty</Text>
+      <Pressable
+        style={styles.button_1}
+        onPress={() => navigation.navigate("Card")}
+      >
+        <Text style={styles.buttonText}>Easy</Text>
+      </Pressable>
+      <Pressable
+        style={styles.button_2}
+        onPress={() => navigation.navigate("Home")}
+      >
+        <Text style={styles.buttonText}>Half</Text>
+      </Pressable>
+      <Pressable
+        style={styles.button_3}
+        onPress={() => navigation.navigate("Home")}
+      >
+        <Text style={styles.buttonText}>Hard</Text>
+      </Pressable>
     </View>
   );
 }
