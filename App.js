@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from './screens/Home';
 import SelectDifficultyScreen from './screens/SelectDifficulty';
+import Card from './screens/Card';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ function App() {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="SelectDifficulty" component={SelectDifficultyScreen} />
+        <Stack.Screen name="Card" component={Card} />
       </Stack.Navigator>
     </NavigationContainer>
   );
