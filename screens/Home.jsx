@@ -14,7 +14,7 @@ function HomeScreen({ navigation }) {
       </Pressable>
       <Pressable
         style={styles.button_2}
-        onPress={() => navigation.navigate("SelectDifficulty")}
+        onPress={() => navigation.navigate("TwoPlayers")}
       >
         <Text style={styles.buttonText}>Dos Jugadores</Text>
       </Pressable>
