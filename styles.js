@@ -46,7 +46,7 @@ export default StyleSheet.create({
     borderRadius: 30,
   },
   button_disabled: {
-    opacity: "0.5",
+    opacity: 0.5,
     width: 200,
     height: 50,
     padding: 15,

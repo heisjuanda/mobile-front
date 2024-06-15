@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text, Pressable, TextInput } from "react-native";
 
+import socket from "../socket";
+
 import styles from "../styles";
 
 function Register({ route, navigation }) {
-  const { socket } = route.params || {};
+  // const { socket } = route.params || {};
 
   const [users, setUsers] = React.useState([]);
   const [username, setUsername] = React.useState("");

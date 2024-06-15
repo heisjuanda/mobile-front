@@ -2,17 +2,18 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
 import HomeScreen from "./screens/Home";
 import SelectDifficultyScreen from "./screens/SelectDifficulty";
 import Card from "./screens/Card";
 import Register from "./screens/RegisterUsers";
 
+import socket from "./socket";
+
 const Stack = createStackNavigator();
 
 function App() {
-  const socket = io("http://localhost:3000");
 
   React.useEffect(() => {
     function connectSocket() {

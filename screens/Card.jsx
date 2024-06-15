@@ -2,22 +2,22 @@ import * as React from "react";
 import { View, Text, Pressable, Button } from "react-native";
 import styles from "../styles";
 
-const cards = [
-  // "🥹",
-  // "🗣️",
-  // "🦷",
-  //"🍑",
-  //"🌪️",
-//   "🌎",
+const allCards = [
+  "🥹",
+  "🗣️",
+  "🦷",
+  "🍑",
+  "🌪️",
+  "🌎",
   "🐷",
-//   "🪝",
-//   "⚛️",
-//   "🔑",
+  "🪝",
+  "⚛️",
+  "🔑",
   "🥕",
   "🥑",
-  // "👻",
-  // "🥶",
-  // "🥵",
+  "👻",
+  "🥶",
+  "🥵",
 ];
 
 function shuffle(array) {
@@ -34,7 +34,7 @@ function CardItem({ card, onPress, isTurnedOver }) {
   return (
     <Pressable
       onPress={onPress}
-      style={isTurnedOver ? styles.cardUp : styles.cardDown}
+      style={isTurnedOver ? styles.cardUpTwo : styles.cardDownTwo}
     >
       {isTurnedOver ? (
         <Text style={styles.cardText}>{card}</Text>
@@ -45,7 +45,24 @@ function CardItem({ card, onPress, isTurnedOver }) {
   );
 }
 
-function Card() {
+function Card({ route }) {
+  const { difficulty } = route.params;
+  
+  const getCardsForDifficulty = (difficulty) => {
+    switch (difficulty) {
+      case 'easy':
+        return allCards.slice(0, 4);
+      case 'medium':
+        return allCards.slice(0, 8);
+      case 'hard':
+        return allCards;
+      default:
+        return allCards.slice(0, 4); // Default to easy if no difficulty is provided
+    }
+  };
+
+  const cards = getCardsForDifficulty(difficulty);
+
   // Crear el tablero con cartas duplicadas y mezcladas una vez al montar el componente
   const [board, setBoard] = React.useState(() => shuffle([...cards, ...cards]));
   const [selectedCards, setSelectedCards] = React.useState([]);
@@ -75,6 +92,7 @@ function Card() {
     setScore(0);
     setSelectedCards([]);
   }
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{didPlayerWin() ? "Congratulations" : "Memory Game"}</Text>
