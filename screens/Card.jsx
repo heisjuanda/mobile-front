@@ -47,14 +47,14 @@ function CardItem({ card, onPress, isTurnedOver }) {
 
 function Card({ route }) {
   const { difficulty } = route.params;
-  
+
   const getCardsForDifficulty = (difficulty) => {
     switch (difficulty) {
-      case 'easy':
+      case "easy":
         return allCards.slice(0, 4);
-      case 'medium':
+      case "medium":
         return allCards.slice(0, 8);
-      case 'hard':
+      case "hard":
         return allCards;
       default:
         return allCards.slice(0, 4); // Default to easy if no difficulty is provided
@@ -68,43 +68,50 @@ function Card({ route }) {
   const [selectedCards, setSelectedCards] = React.useState([]);
   const [matchedCards, setMatchedCards] = React.useState([]);
   const [score, setScore] = React.useState(0);
+  const [a, b] = React.useState(0);
 
   React.useEffect(() => {
     if (selectedCards.length < 2) return;
-    if (board[selectedCards[0]] === board[selectedCards[1]]){
-        setMatchedCards([...matchedCards, ...selectedCards])
-        setSelectedCards([]);
-    } else{
-        const timeoutId = setTimeout(() => setSelectedCards([]), 1000);
-        return () => clearTimeout(timeoutId);
+    if (board[selectedCards[0]] === board[selectedCards[1]]) {
+      setMatchedCards([...matchedCards, ...selectedCards]);
+      setSelectedCards([]);
+    } else {
+      const timeoutId = setTimeout(() => setSelectedCards([]), 1000);
+      return () => clearTimeout(timeoutId);
     }
-  }, [selectedCards])
+  }, [selectedCards]);
 
   const handleTapCard = (index) => {
+    b((prev) => prev + 1);
     if (selectedCards.length >= 2 || selectedCards.includes(index)) return;
     setSelectedCards([...selectedCards, index]);
-    setScore(score + 1);
+    if (a % 2 !== 0) {
+      setScore(score + 1);
+    }
   };
 
-  const didPlayerWin = () => matchedCards.length === board.length; 
+  const didPlayerWin = () => matchedCards.length === board.length;
   const resetGame = () => {
     setMatchedCards([]);
     setScore(0);
     setSelectedCards([]);
-  }
-  
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{didPlayerWin() ? "Congratulations" : "Memory Game"}</Text>
-      <Text style={styles.title}>Score: {score}</Text>
+      <Text style={styles.subtitle}>
+        {didPlayerWin() ? "Congratulations" : "Memory Game"}
+      </Text>
+      <Text style={styles.subtitle}>Movimientos: {score}</Text>
       <View style={styles.board}>
         {board.map((card, index) => {
-          const isTurnedOver = selectedCards.includes(index) || matchedCards.includes(index);
+          const isTurnedOver =
+            selectedCards.includes(index) || matchedCards.includes(index);
           return (
             <CardItem
               key={index}
               isTurnedOver={isTurnedOver}
-              onPress={() => handleTapCard(index) }
+              onPress={() => handleTapCard(index)}
               card={card}
             />
           );
